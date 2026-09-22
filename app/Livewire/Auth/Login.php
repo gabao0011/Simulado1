@@ -17,19 +17,20 @@ class Login extends Component
             'password' => ['required'],
         ], [
             'email.required' => 'O email é obrigatório',
-            'email.email' => 'Format de email incorreto',
+            'email.email' => 'Formato de email incorreto',
             'password.required' => 'A senha é obrigatória',
         ]);
 
-        if(Auth::attempt($credentials, $this->remember)){
+        if(!Auth::attempt($credentials, $this->remember)){
             session()->flash('error', 'Email e senha inválidos');
+            return;
         }
 
         $user = Auth::user();
 
         request()->session()->regenerate();
 
-        return redirect()->route('produto.index');
+        return redirect()->route('dashboard');
     }
 
     public function render()

@@ -1,5 +1,47 @@
 <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
+            <i class="bi bi-box-seam me-2"></i> Almoxarifado
+        </a>
+        
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('produto.*') ? 'active fw-bold' : '' }}" href="{{ route('produto.index') }}">
+                        <i class="bi bi-tags me-1"></i> Produtos
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('movimentacao.*') ? 'active fw-bold' : '' }}" href="{{ route('movimentacao.index') }}">
+                        <i class="bi bi-arrow-left-right me-1"></i> Movimentações
+                    </a>
+                </li>
+            </ul>
+
+            @auth
+            <div class="d-flex align-items-center text-white gap-3">
+                <span class="small"><i class="bi bi-person-circle me-1"></i> {{ auth()->user()->name }}</span>
+                
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right"></i> Sair
+                    </button>
+                </form>
+            </div>
+            @endauth
+        </div>
+    </div>
+</nav> 
+    <div class="container mt-2">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0"> Gestão de estoque</h2>
             <div class="d-flex gap-2">
@@ -14,7 +56,6 @@
             <div class="alert alert-warning">{{ $alertaEstoqueBaixo }}</div>
         @endif
 
-        {{-- Formulario de movimentação --}}
         <div class="card mb-4">
             <div class="card-header">
                 <h5>Registrar Movimentação de Estoque</h5>
@@ -76,7 +117,6 @@
             </div>
         </div>
 
-        {{-- lista de produtos --}}
         <div class="card">
             <div class="card-header">
                 <h5>Produtos Cadastrados</h5>

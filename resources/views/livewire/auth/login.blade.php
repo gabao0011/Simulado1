@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="form-check mb-4">
-                            <input type="checkbox" class="form-check-input" id="remember">
+                            <input type="checkbox" class="form-check-input" id="remember" wire:model='remember'>
                             <label class="form-check-label" for="remember">Lembrar-me</label>
                         </div>
 
